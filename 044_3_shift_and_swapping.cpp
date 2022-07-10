@@ -5,12 +5,10 @@ using namespace std;
 int main(){
     int N, Q;
     int shift_count = 0;
-    vector<int> list(N);
     cin >> N >> Q;
+    vector<int> list(N);
     for(int i=0; i<N; i++){
-        int A;
-        cin >> A;
-        list.push_back(A);
+        cin >> list[i];
     }
     for(int i=0; i<Q; i++){
         int t,x,y;
