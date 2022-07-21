@@ -4,32 +4,32 @@ using namespace std;
 int main(){
     int N, Q;
     cin >> N >> Q;
-    vector <int> A(N);
+    long long ans = 0;
+    vector <long long> A(N);
     for(int i=0; i<N;i++){
         cin >> A[i];
     }
-    vector<int> diff(N-1,0);
+    vector<long long> diff(N-1,0);
     for(int i=1; i<N; i++){
-        diff[i-1] = abs(A[i-1]-A[i]);
+        diff[i-1] = A[i]-A[i-1];
+        ans += abs(diff[i-1]);
     }
     for(int i=0; i<Q; i++){
-        int l, r, v;
+        long long l, r, v;
         cin >> l >> r >> v;
         l--;
         r--;
-        if((diff[l-1] >=0 && v >= 0) || (diff[l-1] < 0 && v < 0)){
-            diff[l-1] += abs(v);
-        }else {
-            diff[l-1] -= abs(v);
+        if(l != 0){
+            ans -= abs(diff[l-1]);//一旦減らしてキャンセルする
+            diff[l-1] += v;
+            ans += abs(diff[l-1]);
+            // cout << "a" << endl;
         }
-        if((diff[r] >=0 && v >= 0) || (diff[r] < 0 && v < 0)){
-            diff[r] += abs(v);
-        }else {
-            diff[r] -= abs(v);
+        if(r != N-1){
+            ans -= abs(diff[r]);//一旦減らしてキャンセルする
+            diff[r] -= v;
+            ans += abs(diff[r]);
         }
-        cout << accumulate(diff.begin(), diff.end(), 0) << endl;
+        cout << ans << endl;
     }
-    // cout << diff[0] << endl;
-
-
 }
