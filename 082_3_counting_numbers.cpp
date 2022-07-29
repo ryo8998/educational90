@@ -3,6 +3,20 @@ typedef unsigned long long ll;
 #define mod 1000000007
 using namespace std;
 
+long long modpow(ll a, ll b, ll mod_num){
+    long long res = 1;
+    while(b){
+        if(b&1){
+            res *= a;
+            res %=mod;
+        }
+        a *= a;
+        a %= mod;
+        b >>= 1;
+    }
+
+}
+
 int main(){
     ll L, R;
     ll ans = 0;
@@ -27,5 +41,8 @@ int main(){
     // cout << "first " << first << endl;
     // last = R;
     // ans += ((first + last) *(last - first + 1LL) /2) * rdigit % mod;
-    cout << ans << endl;
+    cout << ans << end;
+    
+    
+    
 }
