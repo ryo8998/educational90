@@ -10,7 +10,7 @@ constexpr array<int, 4> DX = {0, 1, 0, -1};
         vector<bool> red;
         vector<ll >size;
 
-        UnionFind(int h, int w): parent(h*w, -1), size(h*w, 1), red(h*w,false){}
+        UnionFind(int h, int w): parent(h*w, -1), red(h*w,false){} //size(h*w, 1),
 
         int root(int x){
             if(parent[x] == -1){
@@ -24,14 +24,14 @@ constexpr array<int, 4> DX = {0, 1, 0, -1};
             return root(x) == root(y);
         }
 
-        bool unite(int x, int y){
+        void unite(int x, int y){
             x = root(x);
             y = root(y);
-            if(x == y) return false;
-            if(size[x] < size[y]) swap(x,y);
+            if(x == y) return;
+            // if(size[x] < size[y]) swap(x,y);
             parent[y] = x;
-            size[x] += size[y];
-            return true;
+            // size[x] += size[y];
+            // return true;
         }
 
         int getsize(int x){
@@ -56,8 +56,8 @@ int main(){
             // uf.parent[r*W+c] = r*W+c;
             uf.red[r*W+c] = true;
             // uf.size[r*W+c]++;
-            cout << r*W + c << endl;
-             for (int i = 0; i < 4; i++) {
+            // cout << r*W + c << endl;
+            for (int i = 0; i < 4; i++) {
 
             int nr = r + DY[i];
             int nc = c + DX[i];
@@ -65,8 +65,10 @@ int main(){
                 continue;
             }
             int id2 = nr*W+nc;
-            if(uf.red[id2] == true){
-                uf.unite(r*W+c,id2);
+                if(uf.red[id2] == true){
+                    // cout << r*W+c << "と" << id2 << "を連結" << endl;
+                    uf.unite(r*W+c,id2);
+                }
             }
             // if(r*W + c - r >= 0){
             //     if(uf.red[r*W+c -r] == true){
@@ -98,19 +100,23 @@ int main(){
             ca--;
             rb--;
             cb--;
-            if(uf.issame(ra*W*ca, rb*W+cb)){
+            if(uf.red[ra*W+ca] == false || uf.red[rb*W+cb] == false){
+                cout << "No" << endl;
+                continue; 
+            }
+            // cout << "id1 root " << uf.root(ra*W*ca) << " id 2 root" << uf.root(rb*W*cb) << endl;  
+            if(uf.issame(ra*W+ca, rb*W+cb)){
                 cout << "Yes" << endl;
             }else{
                 cout << "No" << endl;
             }
         }
     } 
-    for(int i=0; i<H*W; i++){
-    cout << uf.parent[i] << " " << endl;
-    if(i % W == W-1){
-      cout << "\n" << endl;
-    }
+    // for(int i=0; i<H*W; i++){
+    // cout << uf.root(i) << " " << endl;
+    // if(i % W == W-1){
+    //   cout << "\n" << endl;
+    // }
 
-}
-
+// }
 }
