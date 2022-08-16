@@ -5,8 +5,8 @@ using namespace std;
 constexpr array<int, 4> DY = {1, 0, -1, 0};
 constexpr array<int, 4> DX = {0, 1, 0, -1};
 
-int next_num(int n){
-    int res = n;
+ll next_num(ll n){
+    ll res = n;
     while(n>0){
         res += n%10;
         n/=10;
@@ -24,13 +24,18 @@ int main(){
         visited[num] = true;
         cnt++;
         num = next_num(num);
+        // cout << num << endl;
     }
+    cout << cnt << endl;
     cout << K % cnt << endl;
-    int ans = N;
+    ll ans = N;
     for(int i=0; i<K%cnt; i++){
         ans = next_num(ans);
-        cout << ans << endl;
+        // cout << ans << endl;
     }
     cout << ans << endl;
+
+    // ll n = 1000000000000000000LL % 4784LL;
+    // cout << n << endl;
 
 }
